@@ -7,50 +7,46 @@ permalink: docs/dispatcher.html
 next: videos
 ---
 
-Dispatcher is used to broadcast payloads to registered callbacks. This is
-different from generic pub-sub systems in two ways:
+Dispatcher는 등록된 callback에 데이터를 중계할 때 사용된다. 일반적인 pub-sub 시스템과는 다음 두 항목이 다르다:
 
-- Callbacks are not subscribed to particular events. Every payload is
-     dispatched to every registered callback.
-- Callbacks can be deferred in whole or part until other callbacks have
-     been executed.
+- 콜백은 이벤트를 개별적으로 구독하지 않는다. 모든 데이터 변동은 등록된 모든 콜백에 전달된다.
+- 콜백이 실행될 때 콜백의 전체나 일부를 중단할 수 있다.
 
-Check out [Dispatcher.js](https://github.com/facebook/flux/blob/master/src/Dispatcher.js) for the source code.
+소스 코드를 보려면 [Dispatcher.js](https://github.com/facebook/flux/blob/master/src/Dispatcher.js)에서 확인할 수 있다.
 
 ## API
 
 - **register(function callback): string**
-Registers a callback to be invoked with every dispatched payload. Returns a token that can be used with `waitFor()`.
+모든 데이터 변동이 있을 때 실행될 콜백을 등록한다. `waitFor()`에서 사용 가능한 토큰을 반환한다.
 
 - **unregister(string id): void**
-Removes a callback based on its token.
+토큰으로 콜백을 제거한다.
 
 - **waitFor(array<string> ids): void**
-Waits for the callbacks specified to be invoked before continuing execution of the current callback. This method should only be used by a callback in response to a dispatched payload.
+현재 실행한 콜백이 진행되기 전에 특정 콜백을 지연하게 한다. 데이터 변동에 응답하는 콜백에만 사용해야 한다.
 
-- **dispatch(object payload): void** Dispatches a payload to all registered callbacks.
+- **dispatch(object payload): void** 등록된 모든 콜백에 데이터를 전달한다.
 
-- **isDispatching(): boolean** Is this Dispatcher currently dispatching.
+- **isDispatching(): boolean** 이 Dispatcher가 지금 데이터를 전달하고 있는지 확인한다.
 
-## Example
+## 예시
 
-For example, consider this hypothetical flight destination form, which
-selects a default city when a country is selected:
+가상의 비행 목적지 양식에서 국가를 선택했을 때 기본 도시를 선택하는 예를 보자:
 
 ```
 var flightDispatcher = new Dispatcher();
 
-// Keeps track of which country is selected
+// 어떤 국가를 선택했는지 계속 추적한다
 var CountryStore = {country: null};
 
-// Keeps track of which city is selected
+// 어느 도시를 선택했는지 계속 추적한다
 var CityStore = {city: null};
 
-// Keeps track of the base flight price of the selected city
+// 선택된 도시의 기본 항공료를 계속 추적한다
 var FlightPriceStore = {price: null};
 ```
 
-When a user changes the selected city, we dispatch the payload:
+사용자가 선택한 도시를 변경하면 데이터를 전달한다:
 
 ```
 flightDispatcher.dispatch({
@@ -59,7 +55,7 @@ flightDispatcher.dispatch({
 });
 ```
 
-This payload is digested by `CityStore`:
+이 데이터 변동은 `CityStore`가 소화한다:
 
 ```
 flightDispatcher.register(function(payload) {
@@ -69,7 +65,7 @@ flightDispatcher.register(function(payload) {
 });
 ```
 
-When the user selects a country, we dispatch the payload:
+사용자가 국가를 선택하면 데이터를 전달한다:
 
 ```
 flightDispatcher.dispatch({
@@ -78,7 +74,7 @@ flightDispatcher.dispatch({
 });
 ```
 
-This payload is digested by both stores:
+이 데이터는 두 store에 의해 소화된다:
 
 ```
  CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
@@ -87,26 +83,23 @@ This payload is digested by both stores:
   }
 });
 ```
-
-When the callback to update `CountryStore` is registered, we save a reference
-to the returned token. Using this token with `waitFor()`, we can guarantee
-that `CountryStore` is updated before the callback that updates `CityStore`
-needs to query its data.
+`CountryStore`가 등록한 콜백을 업데이트 할 때 반환되는 토큰을 참조값으로 저장했다. 이 토큰은 `waitFor()`
+에서 사용할 수 있고 `CityStore`가 갱신하는 것보다 먼저 `CountryStore`를 갱신하도록 보장할 수 있다.
 
 ```
 CityStore.dispatchToken = flightDispatcher.register(function(payload) {
   if (payload.actionType === 'country-update') {
-    // `CountryStore.country` may not be updated.
+    // `CountryStore.country`는 업데이트 되지 않는다
     flightDispatcher.waitFor([CountryStore.dispatchToken]);
-    // `CountryStore.country` is now guaranteed to be updated.
+    // `CountryStore.country`는 업데이트가 될 수 있음이 보장되었다
 
-    // Select the default city for the new country
+    // 새로운 국가의 기본 도시를 선택한다
     CityStore.city = getDefaultCityForCountry(CountryStore.country);
   }
 });
 ```
 
-The usage of `waitFor()` can be chained, for example:
+`waitFor()`는 다음과 같이 묶을 수 있다:
 
 ```
 FlightPriceStore.dispatchToken =
@@ -122,7 +115,4 @@ FlightPriceStore.dispatchToken =
 });
 ```
 
-The `country-update` payload will be guaranteed to invoke the stores'
-registered callbacks in order: `CountryStore`, `CityStore`, then
-`FlightPriceStore`.
-
+`country-update`는 콜백이 등록된 순서 즉 `CountryStore`, `CityStore`, `FlightPriceStore` 순서로 실행되도록 보장된다.
