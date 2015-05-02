@@ -95,7 +95,7 @@ store에게 이벤트를 받으면 store의 퍼블릭 getter 메소드를 통해
 
 ### Actions
 
-dispatcher는 action을 호출해 데이터를 불러오고 store로 전달할 수 있도록 메소드를 제공한다. action의 생성은 dispatcher로 action을 보낼 때 의미있는 헬퍼 메소드로 포개진다. 할 일 목록 어플리케이션에서 할 일 아이템의 문구를 변경하고 싶다고 가정하자. `updateText(todoId, newText)`와 같은 함수 시그니쳐를 이용해 `TodoActions` 모듈 내에 action을 만든다. 이 메소드는 view의 이벤트 핸들러로부터 호출되어 실행할 수 있고 그 결과로 사용자 상호작용에 응답할 수 있게 된다. 이 action 생성자 메소드는 _type_을 추가할 수 있다. 이 type을 이용해 action이 store에서 해석될 수 있도록, 적절한 응답이 가능하도록 한다. 예시에서와 같이 `TODO_UPDATE_TEXT`와 같은 이름의 타입을 사용한다.
+dispatcher는 action을 호출해 데이터를 불러오고 store로 전달할 수 있도록 메소드를 제공한다. action의 생성은 dispatcher로 action을 보낼 때 의미있는 헬퍼 메소드로 포개진다. 할 일 목록 어플리케이션에서 할 일 아이템의 문구를 변경하고 싶다고 가정하자. `updateText(todoId, newText)`와 같은 함수 시그니쳐를 이용해 `TodoActions` 모듈 내에 action을 만든다. 이 메소드는 view의 이벤트 핸들러로부터 호출되어 실행할 수 있고 그 결과로 사용자 상호작용에 응답할 수 있게 된다. 이 action creator 메소드는 _type_을 추가할 수 있다. 이 type을 이용해 action이 store에서 해석될 수 있도록, 적절한 응답이 가능하도록 한다. 예시에서와 같이 `TODO_UPDATE_TEXT`와 같은 이름의 타입을 사용한다.
 
 action은 서버와 같은 다른 장소에서 올 수 있다. 예를 들면 data를 초기화 할 때 이런 과정이 발생할 수 있다. 또한 서버에서 에러 코드를 반환하거나 어플리케이션이 제공된 후에 업데이트가 있을 때 나타날 수 있다.
 
@@ -127,4 +127,4 @@ PrependedTextStore.dispatchToken = Dispatcher.register(function (payload) {
 });
 ```
 
-`waitFor()`, actions, action 생성자와 dispatcher에 대해서는 다음 [Flux 액션과 Dispatcher](http://facebook.github.io/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html)를 참고하자.
+`waitFor()`, actions, action creator와 dispatcher에 대해서는 다음 [Flux 액션과 Dispatcher](http://facebook.github.io/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html)를 참고하자.
