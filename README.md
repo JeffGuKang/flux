@@ -1,13 +1,16 @@
 # Flux
-React의 단방향 데이터 흐름을 활용하기 위한 어플리케이션 아키텍쳐. 
+React의 단방향 데이터 흐름을 활용하기 위한 어플리케이션 아키텍쳐.
 
 <img src="./docs/img/flux-diagram-white-background.png" style="width: 100%;" />
 
 
+## 번역
+번역된 문서는 [flux 한국어 번역 페이지](http://haruair.github.io/flux)에서 확인할 수 있다.
+
 ## 문서
 Flux 발표 포스트를 참고한다: ["An Application Architecture for React"](http://facebook.github.io/react/blog/2014/05/06/flux.html).
 
-상세한 내용은 [Flux 아키텍쳐](http://facebook.github.io/flux/docs/overview.html)와 [TodoMVC 예시](http://facebook.github.io/flux/docs/todo-list.html)에서 확인할 수 있다.
+상세한 내용은 [Flux 아키텍쳐](http://haruair.github.io/flux/docs/overview.html)와 [TodoMVC 예시](http://haruair.github.io/flux/docs/todo-list.html)에서 확인할 수 있다.
 
 더 깊은 내용은 [action creators and the dispatcher](http://facebook.github.io/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html)에서 확인할 수 있다.
 
@@ -29,7 +32,7 @@ Flux는 프레임워크보다는 패턴에 가까워 강한 의존성을 가지�
 var Dispatcher = require('flux').Dispatcher;
 ```
 
-[dispatcher API와 예제](http://facebook.github.io/flux/docs/dispatcher.html#content)를 확인하자.
+[dispatcher API와 예제](http://haruair.github.io/flux/docs/dispatcher.html#content)를 확인하자.
 
 ## 클론 리포지터리에서 Flux 빌드하기
 클론한 리포에서 `flux` 디렉토리로 이동한 후 `npm install`을 실행한다.
@@ -71,3 +74,5 @@ ___stores___는 "변경" 이벤트가 발생했다는 사실을 데이터 레이
 
 ## 라이센스
 Flux는 BSD 라이센스를 따르며 추가적인 특허 허가서를 제공한다.
+
+Flux의 한국어 번역 문서는 BSD 라이센스를 사용한다.
