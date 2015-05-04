@@ -13,13 +13,13 @@ Flux는 Facebook에서 클라이언트-사이드 웹 어플리케이션을 만�
   <iframe src="//www.youtube.com/embed/nYkdrAPrdcw?list=PLb0IAmt7-GS188xDYE-u1ShQmFFGbrk0v&start=621" frameborder="0" allowfullscreen></iframe>
 </figure>
 
-Flux 어플리케이션은 다음 핵심적인 세가지 부분으로 구성되어 있다. : Dispatcher, Stores, Views(React 컴포넌트). Model-View-Controller와 혼동해서는 안된다. Controller도 물론 Flux 어플리케이션에 존재하지만 여기에서는 controller-views - views의 관계로 최상위의 위계에서 종종 찾을 수 있는데 stores에서 데이터를 가져와 그 데이터를 자식에게 보내는 역할을 한다. 덧붙여 dispatcher를 돕는 메소드인 action creator는 이 어플리케이션에서 가능한 모든 변화를 표현하고 있는 유의적 API를 지원하는데 사용된다. Flux 업데이트 주기의 4번째 부분이라고 생각하면 유용하다.
+Flux 어플리케이션은 다음 핵심적인 세가지 부분으로 구성되어 있다: Dispatcher, Stores, Views(React 컴포넌트). Model-View-Controller와 혼동해서는 안된다. Controller도 물론 Flux 어플리케이션에 존재하지만 위계의 최상위에서 controller-views - views 관계로 존재하고 있다. 이 controller-views는 stores에서 데이터를 가져와 그 데이터를 자식에게 보내는 역할을 한다. 덧붙여 dispatcher를 돕는 action creator 메소드는 이 어플리케이션에서 가능한 모든 변화를 표현하는 유의적 API를 지원하는데 사용된다. Flux 업데이트 주기의 4번째 부분이라고 생각하면 유용하다.
 
 Flux는 MVC와 다르게 단방향으로 데이터가 흐른다. React view에서 사용자가 상호작용을 할 때, 그 view는 중앙의 dispatcher를 통해 action을 전파하게 된다. 어플리케이션의 데이터와 비지니스 로직을 가지고 있는 store는 action이 전파되면 이 action에 영향이 있는 모든 view를 갱신한다. 이 방식은 특히 React의 선언형 프로그래밍 스타일 즉, view가 어떤 방식으로 갱신해야 되는지 일일이 작성하지 않고서도 데이터를 변경할 수 있는 형태에서 편리하다.
 
 이 프로젝트는 파생되는 데이터를 올바르게 다루기 위해 시작되었다. 예를 들면 현재 뷰에서 읽지 않은 메시지가 강조되어 있으면서도 읽지 않은 메시지 수를 상단 바에 표시하고 싶었다. 이런 부분은 MVC에서 다루기 어려운데 메시지를 읽기 위한 단일 스레드에서 메시지 스레드 모델을 갱신해야하고 동시에 읽지 않은 메시지 수 모델을 갱신 해야하기 때문이다. 대형 MVC 어플리케이션에서 종종 나타나는 데이터 간의 의존성과 연쇄적인 갱신은 뒤얽힌 데이터 흐름을 만들고 예측할 수 없는 결과로 이끌게 된다.
 
-Flux는 store로 제어를 뒤집었다. 일관성을 유지한다는 명목으로 외부의 갱신에 의존하는 방식보다는 Store는 갱신을 받아들이고 적절하게 조화한다. Store 바깥에 아무것도 두지 않는 방식으로 데이터의 도메인을 관리해야 할 필요가 없어져 외부의 갱신에 따른 문제를 명확하게 분리할 수 있도록 돕는다. Store는 `setAsRead()`와 같은 직접적인 setter 메소드가 없고 그대신 독립적인 세계에서 새로운 데이터를 얻는 방법은 단 하나만 제공하는데 바로 dispatcher에 등록되어 있는 콜백이다.
+Flux는 store를 이용해 제어를 뒤집었다. 일관성을 유지한다는 명목으로 외부의 갱신에 의존하는 방식과 달리 Store는 갱신을 받아들이고 적절하게 조화한다. Store 바깥에 아무것도 두지 않는 방식으로 데이터의 도메인을 관리해야 할 필요가 없어져 외부의 갱신에 따른 문제를 명확하게 분리할 수 있도록 돕는다. Store는 독립적인 세계를 가지고 있어 `setAsRead()`와 같은 직접적인 setter 메소드가 없는 대신 dispatcher에 등록한 콜백을 통해 데이터를 받게 된다.
 
 ## 구조와 데이터 흐름
 
