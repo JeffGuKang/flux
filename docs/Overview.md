@@ -48,6 +48,7 @@ view는 사용자의 상호작용에 응답하기 위해 새로운 action을 만
 <figure class="diagram">
   <img src="/flux/img/flux-simple-f8-diagram-explained-1300w.png" alt="flux 데이터 흐름의 각각 순서에서 다양하게 전달되는 데이터" />
 </figure>
+
 Action creator는 라이브러리에서 제공하는 도움 메소드로 메소드 파라미터에서 action을 생성하고 _type_을 설정하거나 dispatcher에게 제공하는 역할을 한다.
 
 모든 action은 store가 dispatcher에 등록해둔 callback을 통해 모든 store에 전송된다.
