@@ -42,6 +42,7 @@ var Site = React.createClass({
 
             <footer className="wrap">
               <div className="right">© 2014-2015 Facebook Inc.</div>
+              <div>Translated by <a href="http://haruair.com/" target="_blank">haruair</a> <a href="https://github.com/haruair/flux">(github)</a></div>
             </footer>
           </div>
 
