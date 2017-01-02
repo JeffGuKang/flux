@@ -308,7 +308,7 @@ render: function() {
 },
 ```
 
-React 컴포넌트 자체를 테스트하는 방법을 배우려면 [React를 위한 Jest 튜토리얼](http://facebook.github.io/jest/docs/tutorial-react.html)과 [ReactTestUtils 문서](http://facebook.github.io/react/docs/test-utils.html)를 참곻나다.
+React 컴포넌트 자체를 테스트하는 방법을 배우려면 [React를 위한 Jest 튜토리얼](http://facebook.github.io/jest/docs/tutorial-react.html)과 [ReactTestUtils 문서](http://facebook.github.io/react/docs/test-utils.html)를 참고하자.
 
 
 더 읽을 거리
